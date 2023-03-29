@@ -5,7 +5,7 @@ import HomeView from "../views/HomeView.vue";
 
 function auth(to, from, next) {
   if (!localStorage.getItem("access_token")) {
-    return next({ name: "register"});
+    return next({ name: "login"});
   }
 
   next();
@@ -32,6 +32,12 @@ const router = createRouter({
       name: "register",
       beforeEnter: guest,
       component: () => import("@/views/Auth/RegisterView.vue"),
+    },
+    {
+      path: "/login",
+      name: "login",
+      beforeEnter: guest,
+      component: () => import("@/views/Auth/LoginView.vue"),
     },
     {
       path: "/vehicles",
