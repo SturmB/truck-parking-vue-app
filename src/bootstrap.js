@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuth } from "./stores/auth";
+import { useAuth } from "@/stores/auth";
 
 window.axios = axios;
 

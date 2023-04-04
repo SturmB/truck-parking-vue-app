@@ -1,11 +1,10 @@
 // noinspection NpmUsedModulesInstalled
 
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 function auth(to, from, next) {
   if (!localStorage.getItem("access_token")) {
-    return next({ name: "login"});
+    return next({ name: "login" });
   }
 
   next();
@@ -13,7 +12,7 @@ function auth(to, from, next) {
 
 function guest(to, from, next) {
   if (localStorage.getItem("access_token")) {
-    return next({ name: "vehicles.index"});
+    return next({ name: "vehicles.index" });
   }
 
   next();
@@ -25,7 +24,7 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
+      component: import("@/views/HomeView.vue"),
     },
     {
       path: "/register",

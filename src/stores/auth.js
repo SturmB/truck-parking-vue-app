@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 
 export const useAuth = defineStore("auth", () => {
   const router = useRouter();
-  const accessToken = useStorage("access-token", "");
+  const accessToken = useStorage("access_token", "");
   const check = computed(() => !!accessToken.value);
 
   function setAccessToken(value) {
@@ -28,7 +28,7 @@ export const useAuth = defineStore("auth", () => {
 
   async function logout() {
     return window.axios.post("auth/logout").finally(() => {
-      destroyTokenAndRedirectTo("register");
+      destroyTokenAndRedirectTo();
     });
   }
 
