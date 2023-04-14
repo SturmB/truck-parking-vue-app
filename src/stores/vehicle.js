@@ -70,5 +70,20 @@ export const useVehicle = defineStore("vehicle", () => {
     });
   }
 
-  return { form, errors, loading, resetForm, storeVehicle, vehicles, getVehicles, updateVehicle, getVehicle };
+  function deleteVehicle(vehicle) {
+    window.axios.delete(`vehicles/${vehicle.id}`).then(getVehicles);
+  }
+
+  return {
+    form,
+    errors,
+    loading,
+    resetForm,
+    storeVehicle,
+    vehicles,
+    getVehicles,
+    updateVehicle,
+    getVehicle,
+    deleteVehicle,
+  };
 });
