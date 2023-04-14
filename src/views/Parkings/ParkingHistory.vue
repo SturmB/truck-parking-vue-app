@@ -31,13 +31,16 @@ store.getStoppedParkings();
         </div>
         <div class="flex items-top">
           <span class="text-2xl font-bold text-blue-600">{{
-              (parking.total_price / 100).toFixed(2)
-            }}</span>
+            (parking.total_price / 100).toFixed(2)
+          }}</span>
           <span class="pt-0.5">&nbsp;&euro;</span>
         </div>
-        <button type="button" class="btn btn-secondary uppercase">
+        <RouterLink
+          :to="{ name: 'parkings.show', params: { id: parking.id } }"
+          class="btn btn-secondary uppercase"
+        >
           view details
-        </button>
+        </RouterLink>
       </div>
     </div>
   </div>
