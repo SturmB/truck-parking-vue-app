@@ -7,7 +7,7 @@ const store = useParking();
 store.getActiveParkings();
 
 function poll(callback) {
-  return setInterval(callback, 3000);
+  return setInterval(callback, 60000);
 }
 
 const interval = poll(store.getActiveParkings);
@@ -23,7 +23,7 @@ onBeforeUnmount(() => clearInterval(interval));
       :to="{ name: 'parkings.create' }"
       class="btn btn-primary w-full"
     >
-      Order parking
+      Arrive at Shed
     </RouterLink>
 
     <div class="border-t h-[1px] my-6"></div>
@@ -39,25 +39,25 @@ onBeforeUnmount(() => clearInterval(interval));
           {{ parking.vehicle.description }}
         </div>
         <div class="bg-gray-100 p-2">
-          {{ parking.zone.name }}
-          ({{ (parking.zone.price_per_hour / 100).toFixed(2) }} &euro;/h)
+          {{ parking.shed.name }}
+          ({{ parking.shed.capacity }} docking bays)
         </div>
         <div>
           <div class="font-bold uppercase">from</div>
-          <span class="font-mono">{{ parking.start_time }}</span>
+          <span class="font-mono">{{ parking.arrived_at }}</span>
         </div>
         <div class="flex items-top">
           <span class="text-2xl font-bold text-blue-600">{{
-              (parking.total_price / 100).toFixed(2)
+              (parking.wait_duration)
           }}</span>
-          <span class="pt-0.5">&nbsp;&euro;</span>
+          <span class="pt-0.5">&nbsp;seconds waiting</span>
         </div>
         <button
           type="button"
-          @click="store.stopParking(parking)"
+          @click="store.depart(parking)"
           class="btn btn-danger uppercase ml-auto"
         >
-          stop
+          depart
         </button>
       </div>
     </div>

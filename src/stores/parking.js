@@ -11,24 +11,24 @@ export const useParking = defineStore("parking", () => {
   const parkingDetails = ref({});
   const form = reactive({
     vehicle_id: null,
-    zone_id: null,
+    shed_id: null,
   });
 
   function resetForm() {
     form.vehicle_id = null;
-    form.zone_id = null;
+    form.shed_id = null;
 
     errors.value = {};
   }
 
-  function startParking() {
+  function arrive() {
     if (loading.value) return;
 
     loading.value = true;
     errors.value = {};
 
     return window.axios
-      .post("parkings/start", form)
+      .post("parkings/arrive", form)
       .then(() => {
         router.push({ name: "parkings.active" });
       })
@@ -48,11 +48,11 @@ export const useParking = defineStore("parking", () => {
     });
   }
 
-  function stopParking(parking) {
-    return window.axios.put(`parkings/${parking.id}`).then(getActiveParkings);
+  function depart(parking) {
+    return window.axios.put(`parkings/depart/${parking.id}`).then(getActiveParkings);
   }
 
-  function getStoppedParkings() {
+  function getParkingHistory() {
     return window.axios.get("parkings/history").then((response) => {
       stoppedParkings.value = response.data.data;
     });
@@ -73,12 +73,12 @@ export const useParking = defineStore("parking", () => {
     errors,
     loading,
     resetForm,
-    startParking,
+    arrive,
     parkings,
     getActiveParkings,
-    stopParking,
+    depart,
     stoppedParkings,
-    getStoppedParkings,
+    getParkingHistory,
     parking: parkingDetails,
     resetParkingDetails,
     getParking,

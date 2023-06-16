@@ -31,23 +31,23 @@ onBeforeUnmount(store.resetParkingDetails);
       <div class="font-bold uppercase">description</div>
       <div>{{ store.parking.vehicle.description }}</div>
 
-      <div class="font-bold uppercase">zone</div>
-      <div>{{ store.parking.zone.name }}</div>
+      <div class="font-bold uppercase">shed</div>
+      <div>{{ store.parking.shed.name }}</div>
 
-      <div class="font-bold uppercase">price</div>
+      <div class="font-bold uppercase">capacity</div>
       <div>
-        {{ (store.parking.zone.price_per_hour / 100).toFixed(2) }} &euro; per hour
+        {{ store.parking.shed.capacity }} docking bays
       </div>
 
       <div class="font-bold uppercase">from</div>
-      <div>{{ store.parking.start_time }}</div>
+      <div>{{ store.parking.arrived_at }}</div>
 
       <div class="font-bold uppercase">to</div>
-      <div>{{ store.parking.stop_time }}</div>
+      <div>{{ store.parking.departed_at }}</div>
 
-      <div class="font-bold uppercase">total</div>
+      <div class="font-bold uppercase">wait duration</div>
       <div>
-        {{ (store.parking.total_price / 100).toFixed(2) }} &euro;
+        {{ store.parking.wait_duration }} seconds waiting
       </div>
 
       <div class="border-t h-[1px] my-6"></div>

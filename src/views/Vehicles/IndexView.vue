@@ -15,7 +15,7 @@ onMounted(store.getVehicles);
       :to="{ name: 'vehicles.create' }"
       class="btn btn-primary w-full"
     >
-      Add vehicles
+      Add vehicle
     </RouterLink>
 
     <div class="border-t h-[1px] my-6"></div>

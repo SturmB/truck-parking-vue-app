@@ -1,11 +1,11 @@
 <script setup>
 import { onBeforeUnmount } from "vue";
 import { useVehicle } from "@/stores/vehicle";
-import { useZone } from "@/stores/zone";
+import { useShed } from "@/stores/shed";
 import { useParking } from "@/stores/parking";
 
 const vehicleStore = useVehicle();
-const zoneStore = useZone();
+const shedStore = useShed();
 const parkingStore = useParking();
 
 vehicleStore.getVehicles().then((response) => {
@@ -14,9 +14,9 @@ vehicleStore.getVehicles().then((response) => {
   }
 });
 
-zoneStore.getZones().then((response) => {
+shedStore.getSheds().then((response) => {
   if (response.length > 0) {
-    parkingStore.form.zone_id = response[0].id;
+    parkingStore.form.shed_id = response[0].id;
   }
 });
 
@@ -24,9 +24,9 @@ onBeforeUnmount(parkingStore.resetForm);
 </script>
 
 <template>
-  <form @submit.prevent="parkingStore.startParking" novalidate>
+  <form @submit.prevent="parkingStore.arrive" novalidate>
     <div class="flex flex-col mx-auto md:w-96 w-full">
-      <h1 class="text-2xl font-bold mb-4 text-center">Order parking</h1>
+      <h1 class="text-2xl font-bold mb-4 text-center">Arrive at Shed</h1>
 
       <div class="flex flex-col gap-2 mb-4">
         <label for="vehicle_id" class="required">Vehicle</label>
@@ -50,24 +50,24 @@ onBeforeUnmount(parkingStore.resetForm);
       </div>
 
       <div class="flex flex-col gap-2 mb-4">
-        <label for="zone_id" class="required">Zone</label>
+        <label for="shed_id" class="required">Shed</label>
         <select
-          v-model="parkingStore.form.zone_id"
-          name="zone_id"
-          id="zone_id"
+          v-model="parkingStore.form.shed_id"
+          name="shed_id"
+          id="shed_id"
           class="form-input"
           :disabled="parkingStore.loading"
         >
           <option
-            v-for="zone in zoneStore.zones"
-            :value="zone.id"
-            :key="zone.id"
+            v-for="shed in shedStore.sheds"
+            :value="shed.id"
+            :key="shed.id"
           >
-            {{ zone.name }}
-            ({{ (zone.price_per_hour / 100).toFixed(2) }} &euro;/h)
+            {{ shed.name }}
+            ({{ shed.capacity }} docking bays)
           </option>
         </select>
-        <ValidationError :errors="parkingStore.errors" field="zone_id" />
+        <ValidationError :errors="parkingStore.errors" field="shed_id" />
         <ValidationError :errors="parkingStore.errors" field="general" />
       </div>
 
@@ -80,7 +80,7 @@ onBeforeUnmount(parkingStore.resetForm);
           :disabled="parkingStore.loading"
         >
           <IconSpinner class="animate-spin" v-show="parkingStore.loading" />
-          Start parking
+          Arrive and Wait
         </button>
         <RouterLink :to="{ name: 'parkings.active' }" v-slot="{ navigate }">
           <button

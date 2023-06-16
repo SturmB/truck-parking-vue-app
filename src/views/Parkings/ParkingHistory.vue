@@ -3,7 +3,7 @@ import { useParking } from "@/stores/parking";
 
 const store = useParking();
 
-store.getStoppedParkings();
+store.getParkingHistory();
 </script>
 
 <template>
@@ -18,22 +18,22 @@ store.getStoppedParkings();
       >
         <div class="plate text-2xl">{{ parking.vehicle.plate_number }}</div>
         <div class="bg-gray-100 p-2">
-          {{ parking.zone.name }}
-          ({{ (parking.zone.price_per_hour / 100).toFixed(2) }} &euro;/h)
+          {{ parking.shed.name }}
+          ({{ parking.shed.capacity }} docking bays)
         </div>
         <div>
           <div class="font-bold uppercase">from</div>
-          <span class="font-mono">{{ parking.start_time }}</span>
+          <span class="font-mono">{{ parking.arrived_at }}</span>
         </div>
         <div>
           <div class="font-bold uppercase">to</div>
-          <span class="font-mono">{{ parking.stop_time }}</span>
+          <span class="font-mono">{{ parking.departed_at }}</span>
         </div>
         <div class="flex items-top">
           <span class="text-2xl font-bold text-blue-600">{{
-            (parking.total_price / 100).toFixed(2)
+            (parking.wait_duration)
           }}</span>
-          <span class="pt-0.5">&nbsp;&euro;</span>
+          <span class="pt-0.5">&nbsp;seconds waiting</span>
         </div>
         <RouterLink
           :to="{ name: 'parkings.show', params: { id: parking.id } }"
