@@ -52,13 +52,24 @@ onBeforeUnmount(() => clearInterval(interval));
           }}</span>
           <span class="pt-0.5">&nbsp;seconds waiting</span>
         </div>
-        <button
-          type="button"
-          @click="store.depart(parking)"
-          class="btn btn-danger uppercase ml-auto"
-        >
-          depart
-        </button>
+        <div class="flex gap-1 ml-auto">
+          <button
+            type="button"
+            @click="store.dock(parking)"
+            class="btn btn-primary uppercase"
+            v-if="!parking.docked_at"
+          >
+            dock
+          </button>
+          <button
+            type="button"
+            @click="store.depart(parking)"
+            class="btn btn-danger uppercase"
+            v-if="parking.docked_at && !parking.departed_at"
+          >
+            depart
+          </button>
+        </div>
       </div>
     </div>
   </div>

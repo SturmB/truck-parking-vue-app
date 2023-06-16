@@ -48,6 +48,10 @@ export const useParking = defineStore("parking", () => {
     });
   }
 
+  function dock(parking) {
+    return window.axios.put(`parkings/dock/${parking.id}`).then(getActiveParkings);
+  }
+
   function depart(parking) {
     return window.axios.put(`parkings/depart/${parking.id}`).then(getActiveParkings);
   }
@@ -76,6 +80,7 @@ export const useParking = defineStore("parking", () => {
     arrive,
     parkings,
     getActiveParkings,
+    dock,
     depart,
     stoppedParkings,
     getParkingHistory,
