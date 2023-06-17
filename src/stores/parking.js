@@ -21,12 +21,13 @@ export const useParking = defineStore("parking", () => {
     errors.value = {};
   }
 
-  function arrive() {
+  function arrive(dock = false) {
     if (loading.value) return;
 
     loading.value = true;
     errors.value = {};
 
+    form.begin_docking = dock;
     return window.axios
       .post("parkings/arrive", form)
       .then(() => {

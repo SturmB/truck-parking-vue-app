@@ -24,7 +24,7 @@ onBeforeUnmount(parkingStore.resetForm);
 </script>
 
 <template>
-  <form @submit.prevent="parkingStore.arrive" novalidate>
+  <form novalidate>
     <div class="flex flex-col mx-auto md:w-96 w-full">
       <h1 class="text-2xl font-bold mb-4 text-center">Arrive at Shed</h1>
 
@@ -75,12 +75,22 @@ onBeforeUnmount(parkingStore.resetForm);
 
       <div class="flex gap-2">
         <button
-          type="submit"
+          type="button"
+          @click="parkingStore.arrive"
           class="btn btn-primary w-full"
           :disabled="parkingStore.loading"
         >
           <IconSpinner class="animate-spin" v-show="parkingStore.loading" />
           Arrive and Wait
+        </button>
+        <button
+          type="button"
+          @click="parkingStore.arrive(true)"
+          class="btn btn-primary bg-green-600 w-full"
+          :disabled="parkingStore.loading"
+        >
+          <IconSpinner class="animate-spin" v-show="parkingStore.loading" />
+          Arrive and Dock
         </button>
         <RouterLink :to="{ name: 'parkings.active' }" v-slot="{ navigate }">
           <button
