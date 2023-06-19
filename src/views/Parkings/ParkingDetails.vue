@@ -2,6 +2,7 @@
 import { onBeforeUnmount, watchEffect } from "vue";
 import { useParking } from "@/stores/parking";
 import { useRoute } from "vue-router";
+import humanizeDuration from "humanize-duration";
 
 const store = useParking();
 const route = useRoute();
@@ -45,9 +46,13 @@ onBeforeUnmount(store.resetParkingDetails);
       <div class="font-bold uppercase">to</div>
       <div>{{ store.parking.departed_at }}</div>
 
-      <div class="font-bold uppercase">wait duration</div>
+      <div class="font-bold uppercase">waited for</div>
       <div>
-        {{ store.parking.wait_duration }} seconds waiting
+        {{ humanizeDuration(store.parking.wait_duration * 1000, {
+          units: ['y', 'mo', 'w', 'd', 'h', 'm'],
+          round: true,
+          conjunction: " and ",
+        }) }}
       </div>
 
       <div class="border-t h-[1px] my-6"></div>

@@ -1,5 +1,6 @@
 <script setup>
 import { useParking } from "@/stores/parking";
+// import humanizeDuration from "humanize-duration";
 
 const store = useParking();
 
@@ -29,12 +30,14 @@ store.getParkingHistory();
           <div class="font-bold uppercase">to</div>
           <span class="font-mono">{{ parking.departed_at }}</span>
         </div>
-        <div class="flex items-top">
-          <span class="text-2xl font-bold text-blue-600">{{
-            (parking.wait_duration)
-          }}</span>
+<!--        <div class="flex items-top">
+          <span class="text-2xl font-bold text-blue-600">{{ humanizeDuration(parking.wait_duration * 1000, {
+            units: ['y', 'mo', 'w', 'd', 'h', 'm'],
+            round: true,
+            conjunction: " and ",
+          }) }}</span>
           <span class="pt-0.5">&nbsp;seconds waiting</span>
-        </div>
+        </div>-->
         <RouterLink
           :to="{ name: 'parkings.show', params: { id: parking.id } }"
           class="btn btn-secondary uppercase"
