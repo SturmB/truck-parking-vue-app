@@ -74,16 +74,6 @@ export const useParking = defineStore("parking", () => {
     });
   }
 
-  function waitDuration(parking) {
-    console.log(Date.now());
-    console.log(parking.arrived_at * 1000);
-    return humanizeDuration(Date.now() - parking.arrived_at * 1000, {
-      units: ['y', 'mo', 'w', 'd', 'h', 'm', 's'],
-      round: true,
-      conjunction: " and ",
-    });
-  }
-
   return {
     form,
     errors,
@@ -99,6 +89,5 @@ export const useParking = defineStore("parking", () => {
     parking: parkingDetails,
     resetParkingDetails,
     getParking,
-    waitDuration,
   };
 });

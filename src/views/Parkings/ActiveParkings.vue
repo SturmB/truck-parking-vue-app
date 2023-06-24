@@ -8,17 +8,12 @@ const store = useParking();
 store.getActiveParkings();
 
 function poll(callback) {
-  return setInterval(callback, 60000);
+  return setInterval(callback, 60_000);
 }
-// function timer(callback) {
-//   return setInterval(callback, 1000);
-// }
 
 const interval = poll(store.getActiveParkings);
-// const ticker = timer(store.waitDuration);
 
 onBeforeUnmount(() => clearInterval(interval));
-// onBeforeUnmount(() => clearInterval(ticker));
 </script>
 
 <template>
@@ -40,48 +35,6 @@ onBeforeUnmount(() => clearInterval(interval));
         :key="parking.id"
         :parking="parking"
       />
-<!--      <div-->
-<!--        v-for="parking in store.parkings"-->
-<!--        :key="parking.id"-->
-<!--        class="flex flex-col p-2 border gap-1"-->
-<!--      >-->
-<!--        <div class="plate text-2xl">{{ parking.vehicle.plate_number }}</div>-->
-<!--        <div class="text-sm text-gray-600">-->
-<!--          {{ parking.vehicle.description }}-->
-<!--        </div>-->
-<!--        <div class="bg-gray-100 p-2">-->
-<!--          {{ parking.shed.name }}-->
-<!--          ({{ parking.shed.capacity }} docking bays)-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <div class="font-bold uppercase">from</div>-->
-<!--          <span class="font-mono">{{ parking.arrived_at }}</span>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <div class="font-bold uppercase">waiting for</div>-->
-<!--          <span class="text-2xl font-bold text-blue-600">{{-->
-<!--              store.waitDuration(parking)-->
-<!--          }}</span>-->
-<!--        </div>-->
-<!--        <div class="flex gap-1 ml-auto">-->
-<!--          <button-->
-<!--            type="button"-->
-<!--            @click="store.dock(parking)"-->
-<!--            class="btn btn-primary uppercase"-->
-<!--            v-if="!parking.docked_at"-->
-<!--          >-->
-<!--            dock-->
-<!--          </button>-->
-<!--          <button-->
-<!--            type="button"-->
-<!--            @click="store.depart(parking)"-->
-<!--            class="btn btn-danger uppercase"-->
-<!--            v-if="parking.docked_at && !parking.departed_at"-->
-<!--          >-->
-<!--            depart-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
     </div>
   </div>
 </template>
