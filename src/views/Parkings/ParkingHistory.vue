@@ -1,6 +1,6 @@
 <script setup>
 import { useParking } from "@/stores/parking";
-// import humanizeDuration from "humanize-duration";
+import { useDateTimeForHumans } from "../../composables/dateTimeForHumans";
 
 const store = useParking();
 
@@ -20,24 +20,15 @@ store.getParkingHistory();
         <div class="plate text-2xl">{{ parking.vehicle.plate_number }}</div>
         <div class="bg-gray-100 p-2">
           {{ parking.shed.name }}
-          ({{ parking.shed.capacity }} docking bays)
         </div>
         <div>
-          <div class="font-bold uppercase">from</div>
-          <span class="font-mono">{{ parking.arrived_at }}</span>
+          <div class="font-bold uppercase">arrived</div>
+          <span class="font-mono">{{ useDateTimeForHumans(parking.arrived_at) }}</span>
         </div>
         <div>
-          <div class="font-bold uppercase">to</div>
-          <span class="font-mono">{{ parking.departed_at }}</span>
+          <div class="font-bold uppercase">departed</div>
+          <span class="font-mono">{{ useDateTimeForHumans(parking.departed_at) }}</span>
         </div>
-<!--        <div class="flex items-top">
-          <span class="text-2xl font-bold text-blue-600">{{ humanizeDuration(parking.wait_duration * 1000, {
-            units: ['y', 'mo', 'w', 'd', 'h', 'm'],
-            round: true,
-            conjunction: " and ",
-          }) }}</span>
-          <span class="pt-0.5">&nbsp;seconds waiting</span>
-        </div>-->
         <RouterLink
           :to="{ name: 'parkings.show', params: { id: parking.id } }"
           class="btn btn-secondary uppercase"
