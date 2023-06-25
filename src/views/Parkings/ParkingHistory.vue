@@ -1,6 +1,6 @@
 <script setup>
 import { useParking } from "@/stores/parking";
-import { useDateTimeForHumans } from "../../composables/dateTimeForHumans";
+import { useDateTimeFormatter } from "@/composables/dateTimeFormatter";
 
 const store = useParking();
 
@@ -23,11 +23,11 @@ store.getParkingHistory();
         </div>
         <div>
           <div class="font-bold uppercase">arrived</div>
-          <span class="font-mono">{{ useDateTimeForHumans(parking.arrived_at) }}</span>
+          <span class="font-mono">{{ useDateTimeFormatter(parking.arrived_at) }}</span>
         </div>
         <div>
           <div class="font-bold uppercase">departed</div>
-          <span class="font-mono">{{ useDateTimeForHumans(parking.departed_at) }}</span>
+          <span class="font-mono">{{ useDateTimeFormatter(parking.departed_at) }}</span>
         </div>
         <RouterLink
           :to="{ name: 'parkings.show', params: { id: parking.id } }"

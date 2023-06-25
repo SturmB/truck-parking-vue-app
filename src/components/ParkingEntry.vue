@@ -1,7 +1,7 @@
 <script setup>
 import { onBeforeUnmount, ref } from "vue";
-import humanizeDuration from "humanize-duration";
-import { useDateTimeForHumans } from "@/composables/dateTimeForHumans";
+import { useDateTimeFormatter } from "@/composables/dateTimeFormatter";
+import { useDurationFormatter } from "@/composables/durationFormatter";
 
 const props = defineProps(["parking"]);
 const time = ref(currentDuration());
@@ -18,14 +18,6 @@ function currentDuration() {
 
 function updateCurrentDuration() {
   time.value = currentDuration();
-}
-
-function durationForHumans(seconds) {
-  return humanizeDuration(seconds * 1000, {
-    units: ["y", "mo", "w", "d", "h", "m", "s"],
-    round: true,
-    conjunction: " and "
-  });
 }
 
 const ticker = setInterval(updateCurrentDuration, 1000);
@@ -48,7 +40,7 @@ onBeforeUnmount(() => clearInterval(ticker));
     </div>
     <div>
       <div class="font-bold uppercase">arrived</div>
-      <span class="font-mono">{{ useDateTimeForHumans(parking.arrived_at) }}</span>
+      <span class="font-mono">{{ useDateTimeFormatter(parking.arrived_at) }}</span>
     </div>
     <div v-show="parking.is_waiting">
       <div class="font-bold uppercase">waiting for</div>
@@ -56,7 +48,7 @@ onBeforeUnmount(() => clearInterval(ticker));
     </div>
     <div v-show="parking.is_docked">
       <div class="font-bold uppercase">waited for</div>
-      <span class="font-mono">{{ durationForHumans(parking.wait_duration) }}</span>
+      <span class="font-mono">{{ useDurationFormatter(parking.wait_duration) }}</span>
       <div class="font-bold uppercase pt-1">docking for</div>
       <span class="text-2xl font-bold text-blue-600">{{ time }}</span>
     </div>

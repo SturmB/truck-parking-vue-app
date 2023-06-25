@@ -1,4 +1,4 @@
-export const useDateTimeForHumans = (timestamp) => {
+export const useDateTimeFormatter = (timestamp) => {
   return new Intl.DateTimeFormat("en-US", {
     dateStyle: "long",
     timeStyle: "long"

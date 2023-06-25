@@ -2,7 +2,8 @@
 import { onBeforeUnmount, watchEffect } from "vue";
 import { useParking } from "@/stores/parking";
 import { useRoute } from "vue-router";
-import humanizeDuration from "humanize-duration";
+import { useDateTimeFormatter } from "@/composables/dateTimeFormatter";
+import { useDurationFormatter } from "@/composables/durationFormatter";
 
 const store = useParking();
 const route = useRoute();
@@ -37,22 +38,18 @@ onBeforeUnmount(store.resetParkingDetails);
 
       <div class="font-bold uppercase">capacity</div>
       <div>
-        {{ store.parking.shed.capacity }} docking bays
+        {{ store.parking.shed.capacity.toLocaleString() }} docking bays
       </div>
 
-      <div class="font-bold uppercase">from</div>
-      <div>{{ store.parking.arrived_at }}</div>
+      <div class="font-bold uppercase">arrived</div>
+      <div>{{ useDateTimeFormatter(store.parking.arrived_at) }}</div>
 
-      <div class="font-bold uppercase">to</div>
-      <div>{{ store.parking.departed_at }}</div>
+      <div class="font-bold uppercase">departed</div>
+      <div>{{ useDateTimeFormatter(store.parking.departed_at) }}</div>
 
       <div class="font-bold uppercase">waited for</div>
       <div>
-        {{ humanizeDuration(store.parking.wait_duration * 1000, {
-          units: ['y', 'mo', 'w', 'd', 'h', 'm'],
-          round: true,
-          conjunction: " and ",
-        }) }}
+        {{ useDurationFormatter(store.parking.wait_duration) }}
       </div>
 
       <div class="border-t h-[1px] my-6"></div>
