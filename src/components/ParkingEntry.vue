@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeUnmount, ref } from "vue";
 import humanizeDuration from "humanize-duration";
+import { useDateTimeForHumans } from "@/composables/dateTimeForHumans";
 
 const props = defineProps(["parking"]);
 const time = ref(currentDuration());
@@ -27,13 +28,6 @@ function durationForHumans(seconds) {
   });
 }
 
-function dateTimeForHumans(timestamp) {
-  return new Intl.DateTimeFormat("en-US", {
-    dateStyle: "long",
-    timeStyle: "long",
-  }).format(timestamp * 1000);
-}
-
 const ticker = setInterval(updateCurrentDuration, 1000);
 
 onBeforeUnmount(() => clearInterval(ticker));
@@ -53,8 +47,8 @@ onBeforeUnmount(() => clearInterval(ticker));
       ({{ parking.shed.capacity.toLocaleString() }} docking bays)
     </div>
     <div>
-      <div class="font-bold uppercase">from</div>
-      <span class="font-mono">{{ dateTimeForHumans(parking.arrived_at) }}</span>
+      <div class="font-bold uppercase">arrived</div>
+      <span class="font-mono">{{ useDateTimeForHumans(parking.arrived_at) }}</span>
     </div>
     <div v-show="parking.is_waiting">
       <div class="font-bold uppercase">waiting for</div>
