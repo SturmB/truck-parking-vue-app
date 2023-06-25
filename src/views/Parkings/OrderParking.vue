@@ -64,7 +64,7 @@ onBeforeUnmount(parkingStore.resetForm);
             :key="shed.id"
           >
             {{ shed.name }}
-            ({{ shed.capacity }} docking bays)
+            ({{ shed.capacity.toLocaleString() }} docking bays)
           </option>
         </select>
         <ValidationError :errors="parkingStore.errors" field="shed_id" />
@@ -76,7 +76,7 @@ onBeforeUnmount(parkingStore.resetForm);
       <div class="flex gap-2">
         <button
           type="button"
-          @click="parkingStore.arrive"
+          @click="parkingStore.arrive(false)"
           class="btn btn-primary w-full"
           :disabled="parkingStore.loading"
         >
