@@ -24,7 +24,7 @@ onBeforeUnmount(() => clearInterval(interval));
       :to="{ name: 'parkings.create' }"
       class="btn btn-primary w-full"
     >
-      Arrive at Shed
+      New Arrival
     </RouterLink>
 
     <div class="border-t h-[1px] my-6"></div>
@@ -34,6 +34,8 @@ onBeforeUnmount(() => clearInterval(interval));
         v-for="parking in store.parkings"
         :key="parking.id"
         :parking="parking"
+        @dock="store.dock(parking)"
+        @depart="store.depart(parking)"
       />
     </div>
   </div>

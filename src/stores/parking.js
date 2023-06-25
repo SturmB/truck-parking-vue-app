@@ -1,7 +1,6 @@
 import { reactive, ref } from "vue";
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
-import humanizeDuration from "humanize-duration";
 
 export const useParking = defineStore("parking", () => {
   const router = useRouter();

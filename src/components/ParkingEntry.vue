@@ -23,9 +23,6 @@ function updateCurrentDuration() {
 const ticker = setInterval(updateCurrentDuration, 1000);
 
 onBeforeUnmount(() => clearInterval(ticker));
-
-// @click="store.dock(parking)"
-// @click="store.depart(parking)"
 </script>
 
 <template>
@@ -55,6 +52,7 @@ onBeforeUnmount(() => clearInterval(ticker));
     <div class="flex gap-1 ml-auto">
       <button
         type="button"
+        @click="$emit('dock')"
         class="btn btn-primary uppercase"
         v-if="parking.is_waiting"
       >
@@ -62,6 +60,7 @@ onBeforeUnmount(() => clearInterval(ticker));
       </button>
       <button
         type="button"
+        @click="$emit('depart')"
         class="btn btn-danger uppercase"
         v-if="parking.is_docked"
       >
