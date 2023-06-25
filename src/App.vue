@@ -62,7 +62,7 @@ const auth = useAuth();
     </div>
   </header>
 
-  <div class="container md:px-2 px-4 pt-8 md:pt-16 mx-auto">
+  <div class="container md:px-2 px-4 py-8 md:py-16 mx-auto">
     <RouterView />
   </div>
 </template>
