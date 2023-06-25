@@ -52,6 +52,11 @@ onBeforeUnmount(store.resetParkingDetails);
         {{ useDurationFormatter(store.parking.wait_duration) }}
       </div>
 
+      <div class="font-bold uppercase">docked for</div>
+      <div>
+        {{ useDurationFormatter(store.parking.docking_duration) }}
+      </div>
+
       <div class="border-t h-[1px] my-6"></div>
 
       <RouterLink
